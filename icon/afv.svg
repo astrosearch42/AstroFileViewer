@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Visionneuse Astro</title>
+  <desc id="desc">Icone sombre d'une visionneuse astronomique avec lune et objectif.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101b2d"/>
+      <stop offset="1" stop-color="#1b3150"/>
+    </linearGradient>
+    <linearGradient id="lens" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#54b9e8"/>
+      <stop offset="0.55" stop-color="#173c68"/>
+      <stop offset="1" stop-color="#0b1628"/>
+    </linearGradient>
+    <radialGradient id="moon" cx="35%" cy="30%" r="75%">
+      <stop offset="0" stop-color="#fff5c7"/>
+      <stop offset="1" stop-color="#e8b866"/>
+    </radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#050b15" flood-opacity="0.45"/>
+    </filter>
+    <clipPath id="lensClip">
+      <circle cx="161" cy="154" r="57"/>
+    </clipPath>
+  </defs>
+
+  <rect x="8" y="8" width="240" height="240" rx="48" fill="url(#background)"/>
+  <circle cx="38" cy="45" r="2.5" fill="#fff5c7"/>
+  <circle cx="211" cy="42" r="3" fill="#8fd8f5"/>
+  <circle cx="221" cy="92" r="1.8" fill="#fff5c7"/>
+  <circle cx="30" cy="174" r="1.8" fill="#8fd8f5"/>
+  <path d="M24 210h208" stroke="#355577" stroke-width="2" stroke-linecap="round"/>
+
+  <g filter="url(#shadow)">
+        <g fill="#F8FCFF" font-family="" font-size="56" font-weight="900" letter-spacing="5" text-anchor="middle" filter="url(#shadow)">
+        <text x="128" y="55">AFV</text>
+        </g>
+    <path d="M57 72h78l31 44H88z" fill="#d9e5ee" stroke="#f5fbff" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M63 82h66l20 28H83z" fill="#91a8ba" opacity="0.5"/>
+    <path d="M53 69h87" stroke="#f5fbff" stroke-width="7" stroke-linecap="round"/>
+    <path d="M83 113l-20 88M134 113l32 88" stroke="#d9e5ee" stroke-width="9" stroke-linecap="round"/>
+    <path d="M50 201h122" stroke="#f5fbff" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="161" cy="154" r="65" fill="#091321" stroke="#f5fbff" stroke-width="7"/>
+    <circle cx="161" cy="154" r="57" fill="url(#lens)" stroke="#4a9cc8" stroke-width="4"/>
+    <g clip-path="url(#lensClip)">
+      <circle cx="142" cy="132" r="31" fill="url(#moon)"/>
+      <circle cx="130" cy="121" r="6" fill="#c99652" opacity="0.45"/>
+      <circle cx="151" cy="143" r="9" fill="#c99652" opacity="0.35"/>
+      <circle cx="160" cy="119" r="4" fill="#c99652" opacity="0.42"/>
+      <circle cx="183" cy="176" r="2.5" fill="#fff5c7"/>
+      <circle cx="202" cy="129" r="2" fill="#8fd8f5"/>
+    </g>
+    <circle cx="161" cy="154" r="57" fill="none" stroke="#75d4f1" stroke-width="3" opacity="0.8"/>
+  </g>
+
+  <path d="M38 222h180" stroke="#0b1320" stroke-width="5" stroke-linecap="round" opacity="0.4"/>
+</svg>

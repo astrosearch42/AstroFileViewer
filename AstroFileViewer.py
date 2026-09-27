@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Iterable
 
 from PySide6.QtCore import QSettings, QSize, Qt, QUrl
-from PySide6.QtGui import QColor, QDesktopServices, QImageReader, QPixmap
+from PySide6.QtGui import QColor, QDesktopServices, QIcon, QImageReader, QPixmap
 from PySide6.QtWidgets import (
     QApplication,
     QCheckBox,
@@ -79,6 +79,11 @@ OBJECT_LABELS = {
     "Pluto": "Pluto",
     "Pluton": "Pluto",
 }
+
+
+def resource_path(relative_path: str) -> Path:
+    bundle_root = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent))
+    return bundle_root / relative_path
 
 def human_size(size: int) -> str:
     value = float(size)
@@ -565,6 +570,7 @@ def apply_style(app: QApplication, dark: bool = True):
 def main() -> int:
     app = QApplication(sys.argv)
     app.setApplicationName("FileViewer")
+    app.setWindowIcon(QIcon(str(resource_path("icon/afv.svg"))))
     apply_style(app)
     window = MainWindow()
     window.show()
