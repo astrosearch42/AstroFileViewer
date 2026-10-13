@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import hashlib
 import os
 import re
@@ -8,41 +7,35 @@ import sys
 import tempfile
 import zipfile
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import date
 from pathlib import Path
-from typing import Iterable
 
-from PySide6.QtCore import QSettings, QSize, Qt, QUrl
-from PySide6.QtGui import QColor, QDesktopServices, QIcon, QImageReader, QPixmap
+from PIL import Image, ImageOps
+from PySide6.QtCore import QSettings, Qt, QUrl
+from PySide6.QtGui import QDesktopServices, QFontMetrics, QIcon, QPixmap
 from PySide6.QtWidgets import (
     QApplication,
     QCheckBox,
+    QComboBox,
     QFileDialog,
     QFrame,
     QGridLayout,
-    QGroupBox,
     QHBoxLayout,
     QLabel,
-    QListWidget,
-    QListWidgetItem,
     QMainWindow,
-    QMessageBox,
     QMenu,
+    QMessageBox,
     QProgressDialog,
     QPushButton,
     QScrollArea,
     QSplitter,
-    QStackedWidget,
-    QTabWidget,
     QTreeWidget,
     QTreeWidgetItem,
     QVBoxLayout,
     QWidget,
-    QComboBox,
 )
-from PIL import Image, ImageOps
 
-IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".fits", ".tif", ".tiff", ".webp", ".gif", ".heic", ".heif", ".avif", ".mp4"}
+IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".fits", ".tif", ".tiff", ".webp", ".heic", ".heif", ".avif", ".mp4"}
 DATE_PATTERN = re.compile(r"(?<!\d)(20\d{2})[-_](\d{2})[-_](\d{2})(?!\d)")
 CATEGORY_LABELS = {
     "mak127": "Maksutov 127",
@@ -80,10 +73,6 @@ OBJECT_LABELS = {
     "Pluton": "Pluto",
 }
 
-
-def resource_path(relative_path: str) -> Path:
-    bundle_root = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent))
-    return bundle_root / relative_path
 
 def human_size(size: int) -> str:
     value = float(size)
@@ -172,14 +161,14 @@ class FileCard(QFrame):
 
     @staticmethod
     def _short_name(name: str, width: int) -> str:
-        metrics = QApplication.fontMetrics()
+        metrics = QFontMetrics(QApplication.font())
         return metrics.elidedText(name, Qt.TextElideMode.ElideMiddle, width)
 
     @staticmethod
     def _load_thumbnail(path: Path) -> QPixmap:
         try:
             source = path.stat()
-            cache_key = hashlib.sha1(f"{path}|{source.st_mtime_ns}|{source.st_size}".encode("utf-8")).hexdigest()
+            cache_key = hashlib.sha1(f"{path}|{source.st_mtime_ns}|{source.st_size}".encode()).hexdigest()
             thumbnail_path = Path(tempfile.gettempdir()) / "FileViewer" / f"{cache_key}.jpg"
             thumbnail_path.parent.mkdir(parents=True, exist_ok=True)
             if not thumbnail_path.exists():
@@ -567,10 +556,11 @@ def apply_style(app: QApplication, dark: bool = True):
     app.setStyleSheet(style)
 
 
-def main() -> int:
+def afv_main() -> int:
+    ICONDIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', "icon"))
     app = QApplication(sys.argv)
     app.setApplicationName("FileViewer")
-    app.setWindowIcon(QIcon(str(resource_path("icon/afv.svg"))))
+    app.setWindowIcon(QIcon(os.path.join(ICONDIR, "afv.svg")))
     apply_style(app)
     window = MainWindow()
     window.show()
@@ -578,4 +568,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(afv_main())

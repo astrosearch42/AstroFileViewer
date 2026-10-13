@@ -16,29 +16,26 @@ AstroFileViewer is a Windows desktop application built with PySide6. It scans an
 ## Requirements
 
 - Windows
-- Python 3.10 or newer
-- PySide6
-- Pillow
+- Python 3.15 or newer
+- [uv](https://docs.astral.sh/uv/)
 
 ## Run from source
 
-Create and activate a virtual environment, install the dependencies, then run the actual application entry point:
+Install the dependencies declared in `pyproject.toml`, then run the application entry point:
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-python AstroFileViewer.py
+uv sync
+uv run python src\astrofileviewer\AstroFileViewer.py
 ```
 
 The application stores its settings under the `FileViewer/FileViewer` Windows application and organization names. The last selected folder is stored in the `astro/root` setting.
 
 ## Build the Windows executable
 
-`build_exe.ps1` invokes PyInstaller with the project entry point and creates a windowed, one-file executable:
+The build script resolves the project root from its own location, traces the Python source file and its SHA-256 hash, then invokes PyInstaller to create a windowed, one-file executable:
 
 ```powershell
-.\build_exe.ps1
+.\scripts\build_exe.ps1
 ```
 
 The generated executable is:
@@ -48,6 +45,12 @@ dist\AFV.exe
 ```
 
 The build uses the application icon at `icon\afv.ico` and includes `icon\afv.svg` for the window icon.
+
+The application source is located at:
+
+```text
+src\astrofileviewer\AstroFileViewer.py
+```
 
 ## Expected folder structure
 
