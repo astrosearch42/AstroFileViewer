@@ -24,7 +24,7 @@ Write-Host "SHA-256 du point d'entrée : $entryPointHash"
 
 Push-Location $projectRoot
 try {
-python -m PyInstaller `
+uv run python -m PyInstaller `
   --noconfirm `
   --clean `
   --onefile `
